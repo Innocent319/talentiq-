@@ -22,12 +22,14 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   });
 
   useEffect(() => {
-    const root = document.documentElement;
+    const root = window.document.documentElement;
+    
     if (theme === 'dark') {
       root.classList.add('dark');
     } else {
       root.classList.remove('dark');
     }
+    
     localStorage.setItem('theme', theme);
   }, [theme]);
 
