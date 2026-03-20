@@ -13,8 +13,11 @@ import {
   Target,
   TrendingUp,
   Globe,
-  FileText
+  FileText,
+  Moon,
+  Sun
 } from 'lucide-react';
+import { useTheme } from '../../context/ThemeContext';
 
 interface SidebarProps {
   activeTab: string;
@@ -38,31 +41,33 @@ const navItems = [
 ];
 
 export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, collapsed, setCollapsed }) => {
+  const { theme, toggleTheme } = useTheme();
+
   return (
     <motion.aside 
       initial={{ x: -100, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
-      className={`fixed left-0 top-0 h-screen bg-white border-r border-gray-200 transition-all duration-300 z-20 ${collapsed ? 'w-20' : 'w-64'}`}
+      className={`fixed left-0 top-0 h-screen bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transition-all duration-300 z-20 ${collapsed ? 'w-20' : 'w-64'}`}
     >
-      <div className="flex items-center justify-between p-6 border-b border-gray-200">
+      <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
         {!collapsed && (
           <motion.h1 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-xl font-bold text-primary-600"
+            className="text-xl font-bold text-primary-600 dark:text-primary-400"
           >
             ResumeFilter AI
           </motion.h1>
         )}
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+          className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
         >
-          {collapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
+          {collapsed ? <ChevronRight size={20} className="text-gray-600 dark:text-gray-400" /> : <ChevronLeft size={20} className="text-gray-600 dark:text-gray-400" />}
         </button>
       </div>
       
-      <nav className="p-4 space-y-2">
+      <nav className="p-4 space-y-1">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeTab === item.id;
@@ -71,26 +76,40 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, colla
             <button
               key={item.id}
               onClick={() => setActiveTab(item.id)}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all relative ${
                 isActive 
-                  ? 'bg-primary-50 text-primary-600 shadow-sm' 
-                  : 'text-gray-600 hover:bg-gray-50'
+                  ? 'bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 shadow-sm' 
+                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
               }`}
             >
-              <Icon size={20} className={isActive ? 'text-primary-600' : ''} />
+              <Icon size={20} className={isActive ? 'text-primary-600 dark:text-primary-400' : ''} />
               {!collapsed && (
                 <span className="font-medium">{item.label}</span>
               )}
               {isActive && (
                 <motion.div
                   layoutId="activeIndicator"
-                  className="absolute left-0 w-1 h-8 bg-primary-600 rounded-r-full"
+                  className="absolute left-0 w-1 h-8 bg-primary-600 dark:bg-primary-400 rounded-r-full"
                 />
               )}
             </button>
           );
         })}
       </nav>
+
+      {!collapsed && (
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 dark:border-gray-700">
+          <button
+            onClick={toggleTheme}
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700"
+          >
+            {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+            <span className="font-medium">
+              {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+            </span>
+          </button>
+        </div>
+      )}
     </motion.aside>
   );
 };
