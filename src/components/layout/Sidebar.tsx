@@ -8,7 +8,12 @@ import {
   BarChart3, 
   Settings,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Calendar,
+  Target,
+  TrendingUp,
+  Globe,
+  FileText
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -21,10 +26,14 @@ interface SidebarProps {
 const navItems = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { id: 'candidates', label: 'Candidates', icon: Users },
-  { id: 'matching', label: 'Job Matching', icon: Users },
+  { id: 'matching', label: 'Job Matching', icon: Target },
   { id: 'jobs', label: 'Jobs', icon: Briefcase },
+  { id: 'interviews', label: 'Interviews', icon: Calendar },
   { id: 'filters', label: 'Filter Presets', icon: Filter },
   { id: 'analytics', label: 'Analytics', icon: BarChart3 },
+  { id: 'predictive', label: 'Predictions', icon: TrendingUp },
+  { id: 'diversity', label: 'Diversity', icon: Globe },
+  { id: 'reports', label: 'Reports', icon: FileText },
   { id: 'settings', label: 'Settings', icon: Settings },
 ];
 

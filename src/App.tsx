@@ -9,14 +9,22 @@ import { FilterPresets } from './pages/FilterPresets';
 import { Analytics } from './pages/Analytics';
 import { Settings } from './pages/Settings';
 import { MatchInterface } from './pages/MatchInterface';
+import { PredictiveAnalytics } from './pages/PredictiveAnalytics';
+import { Reporting } from './pages/Reporting';
+import { DiversityAnalytics } from './pages/DiversityAnalytics';
+import { InterviewScheduler } from './pages/InterviewScheduler';
 
 const pageTitles: Record<string, string> = {
   dashboard: 'Dashboard',
   candidates: 'Candidates',
   matching: 'Job Matching',
   jobs: 'Jobs',
+  interviews: 'Interviews',
   filters: 'Filter Presets',
   analytics: 'Analytics',
+  predictive: 'Predictive Analytics',
+  diversity: 'Diversity',
+  reports: 'Reports',
   settings: 'Settings',
 };
 
@@ -35,10 +43,18 @@ function App() {
         return <MatchInterface />;
       case 'jobs':
         return <Jobs />;
+      case 'interviews':
+        return <InterviewScheduler />;
       case 'filters':
         return <FilterPresets />;
       case 'analytics':
         return <Analytics />;
+      case 'predictive':
+        return <PredictiveAnalytics />;
+      case 'diversity':
+        return <DiversityAnalytics />;
+      case 'reports':
+        return <Reporting />;
       case 'settings':
         return <Settings />;
       default:
