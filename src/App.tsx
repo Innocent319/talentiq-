@@ -8,10 +8,12 @@ import { Jobs } from './pages/Jobs';
 import { FilterPresets } from './pages/FilterPresets';
 import { Analytics } from './pages/Analytics';
 import { Settings } from './pages/Settings';
+import { MatchInterface } from './pages/MatchInterface';
 
-const pageTitles = {
+const pageTitles: Record<string, string> = {
   dashboard: 'Dashboard',
   candidates: 'Candidates',
+  matching: 'Job Matching',
   jobs: 'Jobs',
   filters: 'Filter Presets',
   analytics: 'Analytics',
@@ -29,6 +31,8 @@ function App() {
         return <Dashboard />;
       case 'candidates':
         return <Candidates />;
+      case 'matching':
+        return <MatchInterface />;
       case 'jobs':
         return <Jobs />;
       case 'filters':
@@ -53,7 +57,7 @@ function App() {
       
       <main className={`transition-all duration-300 ${sidebarCollapsed ? 'ml-20' : 'ml-64'}`}>
         <Header
-          title={pageTitles[activeTab as keyof typeof pageTitles]}
+          title={pageTitles[activeTab] || 'Dashboard'}
           onUpload={() => setShowUploadModal(true)}
         />
         
