@@ -116,7 +116,7 @@ export const MatchInterface: React.FC = () => {
                   <label className="block text-sm font-medium text-gray-700 mb-2">Sort By</label>
                   <select
                     value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value as any)}
+                    onChange={(e) => setSortBy(e.target.value as 'score' | 'experience' | 'name')}
                     className="w-full px-3 py-2 border border-gray-200 rounded-lg"
                   >
                     <option value="score">Match Score</option>
