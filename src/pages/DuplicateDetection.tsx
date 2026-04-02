@@ -24,11 +24,13 @@ export const DuplicateDetection: React.FC = () => {
 
   const duplicates = useMemo(() => {
     const duplicateIds = detectDuplicateCandidates(mockCandidates);
-    return duplicateIds.map(ids => {
+    return duplicateIds.map((ids, index) => {
       const candidates = ids.map(id => mockCandidates.find(c => c.id === id)!);
+      // Use index to generate a stable similarity score for this session
+      const similarity = 85 + (index % 10);
       return {
         candidates,
-        similarity: 85 + Math.random() * 10,
+        similarity,
         reason: candidates[0].email === candidates[1].email 
           ? 'Same email address'
           : 'Similar name and skills'

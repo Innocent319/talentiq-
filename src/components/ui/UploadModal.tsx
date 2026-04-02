@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Upload, Link2, FileText, Linkedin, HardDrive, Loader2, CheckCircle2, AlertCircle, Trash2 } from 'lucide-react';
 import { parseResumeFile } from '../../utils/algorithms';
+import type { Candidate } from '../../types';
 
 interface UploadModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onUploadComplete: (candidate: any) => void;
+  onUploadComplete: (candidate: Candidate | Partial<Candidate>) => void;
 }
 
 type TabType = 'upload' | 'linkedin' | 'drive';
@@ -18,7 +19,7 @@ interface UploadedFile {
   size: string;
   status: UploadStatus;
   progress?: number;
-  candidate?: any;
+  candidate?: Candidate | Partial<Candidate>;
 }
 
 export const UploadModal: React.FC<UploadModalProps> = ({ isOpen, onClose, onUploadComplete }) => {
@@ -86,7 +87,7 @@ export const UploadModal: React.FC<UploadModalProps> = ({ isOpen, onClose, onUpl
           f.id === file.id ? { ...f, status: 'complete' as UploadStatus, candidate: parsed } : f
         ));
         onUploadComplete(parsed);
-      } catch (error) {
+      } catch {
         setFiles(prev => prev.map(f => 
           f.id === file.id ? { ...f, status: 'error' as UploadStatus } : f
         ));
