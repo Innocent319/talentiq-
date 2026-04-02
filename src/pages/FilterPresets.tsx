@@ -102,7 +102,7 @@ export const FilterPresets: React.FC = () => {
                   <span className="text-gray-600 capitalize">{key}: </span>
                   <span className="text-gray-900">
                     {Array.isArray(value) ? value.join(', ') : typeof value === 'object' && value !== null ? 
-                      `${(value as any).min || 0} - ${(value as any).max || '∞'} years` : String(value)}
+                      `${(value as { min?: number; max?: number }).min || 0} - ${(value as { min?: number; max?: number }).max || '∞'} years` : String(value)}
                   </span>
                 </div>
               ))}

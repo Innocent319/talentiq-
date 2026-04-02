@@ -138,7 +138,7 @@ export const Reporting: React.FC = () => {
         ].map((tab) => (
           <button
             key={tab.id}
-            onClick={() => setActiveTab(tab.id as any)}
+            onClick={() => setActiveTab(tab.id as 'templates' | 'custom' | 'scheduled')}
             className={`flex items-center gap-2 px-4 py-3 font-medium transition-colors border-b-2 ${
               activeTab === tab.id 
                 ? 'text-primary-600 border-primary-600' 

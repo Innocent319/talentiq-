@@ -129,7 +129,7 @@ export const Candidates: React.FC = () => {
   const allSkills = useMemo(() => getAllSkills(mockCandidates), []);
 
   const filteredCandidates = useMemo(() => {
-    let candidates = filterCandidates(mockCandidates, { ...filters, search: searchTerm });
+    const candidates = filterCandidates(mockCandidates, { ...filters, search: searchTerm });
     
     switch (sortBy) {
       case 'score':
@@ -189,7 +189,7 @@ export const Candidates: React.FC = () => {
 
         <select
           value={sortBy}
-          onChange={(e) => setSortBy(e.target.value as any)}
+          onChange={(e) => setSortBy(e.target.value as 'score' | 'experience' | 'name')}
           className="px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 outline-none"
         >
           <option value="score">Sort by Match</option>

@@ -1,75 +1,76 @@
-# React + TypeScript + Vite
+# TalentIQ - Automated Version Control Flow
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is configured with an automated version control and deployment workflow.
 
-Currently, two official plugins are available:
+## Development Workflow
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 1. Feature Branching
+Always create a new branch for your changes:
+```bash
+git checkout -b feat/my-new-feature
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Conventional Commits
+We use the [Conventional Commits](https://www.conventionalcommits.org/) standard for commit messages. This allows us to automate changelogs and versioning.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Format: `<type>(optional scope): <description>`
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-# talentiq-
-# talentiq-
+Common types:
+- `feat`: A new feature
+- `fix`: A bug fix
+- `docs`: Documentation only changes
+- `style`: Changes that do not affect the meaning of the code (white-space, formatting, etc)
+- `refactor`: A code change that neither fixes a bug nor adds a feature
+- `perf`: A code change that improves performance
+- `test`: Adding missing tests or correcting existing tests
+- `chore`: Changes to the build process or auxiliary tools and libraries
+
+Example: `feat: add user authentication`
+
+### 3. Pre-commit Hooks
+When you run `git commit`, `husky` and `lint-staged` will automatically run ESLint on your changed files. If there are linting errors, the commit will be blocked until they are fixed.
+
+### 4. Continuous Integration (CI)
+When you push your branch to GitHub and open a Pull Request, GitHub Actions will automatically:
+- Install dependencies
+- Run linting (`npm run lint`)
+- Run build (`npm run build`)
+
+Your PR should only be merged if these checks pass.
+
+> **Note**: There are currently pre-existing linting errors in the codebase. These will be highlighted by the automated CI checks. It is recommended to address these as part of your development to ensure a clean, error-free codebase.
+
+### 5. Automated Release and Versioning
+When you are ready to create a new version:
+1. Merge your changes into the `main` branch.
+2. From the `main` branch, run:
+   ```bash
+   npm run release
+   ```
+   This will:
+   - Bump the version in `package.json` based on your commit messages.
+   - Generate/update `CHANGELOG.md`.
+   - Create a new git tag.
+3. Push the new commit and tag:
+   ```bash
+   git push --follow-tags origin main
+   ```
+
+### 6. Continuous Deployment (CD)
+Every push to the `main` branch (including releases) triggers a GitHub Action that builds the project and deploys it to **GitHub Pages**.
+
+- **Deployment URL**: `https://Innocent319.github.io/talentiq-/`
+
+---
+
+## Getting Started Locally
+
+1. Clone the repository.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```

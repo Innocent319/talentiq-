@@ -22,7 +22,7 @@ import {
   ChevronRight,
   Edit2
 } from 'lucide-react';
-import type { Candidate, Job } from '../../types';
+import type { Candidate, Job, Education, Experience, Project } from '../../types';
 import { calculateCompatibilityScore, analyzeSkillGaps, generateCandidateSummary } from '../../utils/algorithms';
 
 interface CandidateDetailModalProps {
@@ -158,7 +158,7 @@ export const CandidateDetailModal: React.FC<CandidateDetailModalProps> = ({
                         <div className="card p-6">
                           <h3 className="text-lg font-semibold text-gray-900 mb-4">Education</h3>
                           <div className="space-y-4">
-                            {candidate.education.map((edu: any, index: number) => (
+                            {candidate.education.map((edu: Education, index: number) => (
                               <div key={index} className="flex items-start gap-3">
                                 <div className="p-2 bg-primary-100 rounded-lg">
                                   <GraduationCap className="text-primary-600" size={18} />
@@ -323,7 +323,7 @@ export const CandidateDetailModal: React.FC<CandidateDetailModalProps> = ({
                   <div className="space-y-6">
                     <div className="relative">
                       <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gray-200" />
-                      {candidate.experience.map((exp: any, index: number) => (
+                      {candidate.experience.map((exp: Experience, index: number) => (
                         <div key={index} className="relative pl-14 pb-8">
                           <div className="absolute left-4 w-5 h-5 rounded-full bg-primary-600 border-4 border-white shadow" />
                           <motion.div
@@ -396,7 +396,7 @@ export const CandidateDetailModal: React.FC<CandidateDetailModalProps> = ({
 
                 {activeTab === 'projects' && (
                   <div className="space-y-6">
-                    {candidate.projects.map((project: any, index: number) => (
+                    {candidate.projects.map((project: Project, index: number) => (
                       <motion.div
                         key={index}
                         initial={{ opacity: 0, y: 20 }}
@@ -470,7 +470,7 @@ export const CandidateDetailModal: React.FC<CandidateDetailModalProps> = ({
                     <div className="card p-6">
                       <h3 className="text-lg font-semibold text-gray-900 mb-4">Career Trajectory</h3>
                       <div className="flex items-end justify-between h-40 px-4">
-                        {candidate.experience.map((exp: any, index: number) => (
+                        {candidate.experience.map((exp: Experience, index: number) => (
                           <motion.div
                             key={index}
                             initial={{ height: 0 }}

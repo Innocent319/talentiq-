@@ -24,7 +24,7 @@ export function calculateCompatibilityScore(candidate: Candidate, job: Job): Mat
         exp.description.toLowerCase().includes(job.industry.toLowerCase())
       ) ? 70 : 50;
   
-  const culturalFit = calculateCulturalFit(candidate, job);
+  const culturalFit = calculateCulturalFit(candidate);
   
   const overallScore = Math.round(
     (skillsMatch / 100) * 0.4 +
@@ -48,7 +48,7 @@ export function calculateCompatibilityScore(candidate: Candidate, job: Job): Mat
   };
 }
 
-function calculateCulturalFit(candidate: Candidate, _job: Job): number {
+function calculateCulturalFit(candidate: Candidate): number {
   let score = 60;
   
   if (candidate.certifications.length > 0) score += 10;
