@@ -198,12 +198,12 @@ class ApiService {
     }
   }
 
-  async getAnalytics(type: string): Promise<ApiResponse<any>> {
-    return this.request<any>(`/analytics/${type}`);
+  async getAnalytics(type: string): Promise<ApiResponse<unknown>> {
+    return this.request<unknown>(`/analytics/${type}`);
   }
 
-  async generateReport(config: any): Promise<ApiResponse<any>> {
-    return this.request<any>('/reports/generate', {
+  async generateReport(config: unknown): Promise<ApiResponse<unknown>> {
+    return this.request<unknown>('/reports/generate', {
       method: 'POST',
       body: JSON.stringify(config),
     });
@@ -234,7 +234,7 @@ export const jobsApi = {
 
 export const analyticsApi = {
   get: (type: string) => api.getAnalytics(type),
-  generateReport: (config: any) => api.generateReport(config),
+  generateReport: (config: unknown) => api.generateReport(config),
 };
 
 export const filterPresetsApi = {

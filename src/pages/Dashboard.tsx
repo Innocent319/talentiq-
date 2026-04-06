@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Users, Briefcase, TrendingUp, Target, Clock, Award, Calendar, X, ArrowRight, TrendingDown, AlertCircle } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, ReferenceLine, Cell } from 'recharts';
 import { mockCandidates, mockJobs } from '../data/mockData';
+import type { Candidate, Job } from '../types';
 
 const experienceData = [
   { range: '0-2', count: 2 },
@@ -22,9 +23,9 @@ const skillsData = [
 
 export const Dashboard: React.FC = () => {
   const totalCandidates = mockCandidates.length;
-  const activeJobs = mockJobs.filter((j: any) => j.status === 'active').length;
+  const activeJobs = mockJobs.filter((j: Job) => j.status === 'active').length;
   const avgScore = Math.round(
-    mockCandidates.reduce((sum: number, c: any) => sum + (c.compatibilityScore || 0), 0) / totalCandidates
+    mockCandidates.reduce((sum: number, c: Candidate) => sum + (c.compatibilityScore || 0), 0) / totalCandidates
   );
 
   const stats = [
@@ -140,7 +141,7 @@ export const Dashboard: React.FC = () => {
         >
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Top Skills</h3>
           <div className="space-y-4">
-            {skillsData.map((item: any, index: number) => {
+            {skillsData.map((item, index) => {
               const gap = item.demand - item.count;
               const isHighDemand = gap > 1;
               
@@ -253,7 +254,7 @@ export const Dashboard: React.FC = () => {
                 { label: 'View All', icon: Users, color: 'bg-gray-100 hover:bg-gray-200' }
               ]
             },
-          ].map((activity: any, index: number) => {
+          ].map((activity, index) => {
             const Icon = activity.icon;
             return (
               <motion.div
@@ -271,7 +272,7 @@ export const Dashboard: React.FC = () => {
                   <p className="text-xs text-gray-500">{activity.time}</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  {activity.actions.map((action: any, i: number) => {
+                  {activity.actions.map((action, i) => {
                     const ActionIcon = action.icon;
                     return (
                       <button
